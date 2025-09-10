@@ -1,0 +1,13 @@
+[tool.pytest.ini_options]
+addopts = "-ra -q --cov=src --cov-report=term-missing --cov-report=html"
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+
+[tool.coverage.report]
+skip_empty = true
+show_missing = true
+fail_under = 95
