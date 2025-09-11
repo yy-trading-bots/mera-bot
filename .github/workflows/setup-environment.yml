@@ -1,0 +1,31 @@
+name: Setup environment
+
+on:
+  workflow_call:
+
+defaults:
+  run:
+    shell: powershell
+
+jobs:
+  setup_environment:
+    runs-on: [self-hosted, Windows]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create virtual environment
+        run: python -m venv .venv
+
+      - name: Install dependencies
+        run: ./.venv/Scripts/pip install -r requirements.txt
+
+      - name: Pack venv
+        run: Compress-Archive -Path .venv -DestinationPath venv.zip -Force
+
+      - name: Upload venv artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: venv-artifact
+          path: venv.zip
+          if-no-files-found: error
+          retention-days: 1

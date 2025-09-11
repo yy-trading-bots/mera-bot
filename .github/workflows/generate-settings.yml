@@ -1,0 +1,53 @@
+name: Generate settings
+
+on:
+  workflow_call:
+    secrets:
+      PUBLIC_KEY:
+        required: true
+      SECRET_KEY:
+        required: true
+
+defaults:
+  run:
+    shell: powershell
+
+jobs:
+  generate_settings:
+    runs-on: [self-hosted, Windows]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write ./src/settings.toml
+        run: |
+          New-Item -ItemType Directory -Path ./src -Force | Out-Null
+          $content = @'
+          [API]
+          PUBLIC_KEY = "${{ secrets.PUBLIC_KEY }}"
+          SECRET_KEY = "${{ secrets.SECRET_KEY }}"
+
+          [POSITION]
+          SYMBOL = "ETHUSDT"
+          COIN_PRECISION = 2
+          TP_RATIO = 0.0050
+          SL_RATIO = 0.0050
+          LEVERAGE = 1
+
+          [RUNTIME]
+          TEST_MODE = true
+          DEBUG_MODE = false
+          INTERVAL = "15m"
+          SLEEP_DURATION = 30.0
+          '@
+
+          $path = Join-Path -Path (Get-Location) -ChildPath 'src\settings.toml'
+          $enc = New-Object System.Text.UTF8Encoding $false
+          [System.IO.File]::WriteAllText($path, $content, $enc)
+
+      - name: Upload settings artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: settings-artifact
+          path: src/settings.toml
+          if-no-files-found: error
+          retention-days: 1
