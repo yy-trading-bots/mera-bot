@@ -34,13 +34,13 @@ hese indicators are used to determine the position type. The position entry cond
 Long position entry condition (pseudocode):
 
 ```py
-  long_condition = price > EMA_100 and MACD_line crosses_above signal and RSI > 50
+  long_condition = price < EMA_100 and MACD_12 > MACD_26 and MACD_12 < 0 and RSI_6 > 50
 ```
 
 Short position entry condition (pseudocode):
 
 ```py
-  short_condition = price < EMA_100 and MACD_line crosses_below signal and RSI < 50
+  short_condition = price > EMA_100 and MACD_12 < MACD_26 and MACD_12 > 0  and RSI_6 < 50
 ```
 
 Then, when one of these two conditions is met, the bot initializes a model trained with previous position results and makes a prediction:
