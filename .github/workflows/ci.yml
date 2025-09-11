@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+defaults:
+  run:
+    shell: powershell
+
+jobs:
+  setup_environment:
+    uses: ./.github/workflows/setup-environment.yml
+
+  generate_settings:
+    needs: setup_environment
+    uses: ./.github/workflows/generate-settings.yml
+    secrets:
+      PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+
+  run_tests:
+    needs: [setup_environment, generate_settings]
+    uses: ./.github/workflows/run-tests.yml

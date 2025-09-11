@@ -1,0 +1,32 @@
+name: Run tests
+
+on:
+  workflow_call:
+
+defaults:
+  run:
+    shell: powershell
+
+jobs:
+  run_tests:
+    runs-on: [self-hosted, Windows]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download venv
+        uses: actions/download-artifact@v4
+        with:
+          name: venv-artifact
+          path: .
+
+      - name: Unpack venv
+        run: Expand-Archive -Path venv.zip -DestinationPath . -Force
+
+      - name: Download settings.toml
+        uses: actions/download-artifact@v4
+        with:
+          name: settings-artifact
+          path: src
+
+      - name: Run tests
+        run: ./.venv/Scripts/pytest -v
