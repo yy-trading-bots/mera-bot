@@ -3,13 +3,13 @@
 </div>
 
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
-[![Coverage 96.29%](https://img.shields.io/badge/coverage-96.29%25-brightgreen.svg)](#)
+[![Coverage 96.67%](https://img.shields.io/badge/coverage-96.67%25-brightgreen.svg)](#)
 [![CI](https://github.com/yy-trading-bots/mera-bot/actions/workflows/ci.yml/badge.svg)](https://github.com/yy-trading-bots/mera-bot/actions/workflows/ci.yml)
 [![license](https://img.shields.io/github/license/yy-trading-bots/mera-bot)](https://github.com/yy-trading-bots/mera-bot/blob/master/LICENSE)
 
 # MeraBot
 
-> An automated cryptocurrency trading bot for **Binance** that combines MACD, EMA, and REM indicators with Artificial Intelligence to detect and confirm **LONG/SHORT** signals.
+> An automated cryptocurrency trading bot for **Binance** that combines MACD, EMA, and RSI indicators with Artificial Intelligence to detect and confirm **LONG/SHORT** signals.
 
 ---
 
